@@ -1,6 +1,9 @@
 package usm
 
-import "github.com/nortoo/usm/model"
+import (
+	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
+)
 
 func (c *Client) CreateGroup(g *model.Group) error {
 	return c.db.Create(g).Error
@@ -22,11 +25,7 @@ func (c *Client) GetGroup(g *model.Group, cols ...interface{}) (*model.Group, er
 	return g, nil
 }
 
-type QueryGroupOptions struct {
-	Pagination *model.Pagination
-}
-
-func (c *Client) ListGroups(q *QueryGroupOptions) (ret []*model.Group, total int64, err error) {
+func (c *Client) ListGroups(q *types.QueryGroupOptions) (ret []*model.Group, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
 		err = tx.Model(&model.Group{}).Count(&total).Error

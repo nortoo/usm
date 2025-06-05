@@ -1,6 +1,9 @@
 package usm
 
-import "github.com/nortoo/usm/model"
+import (
+	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
+)
 
 func (c *Client) CreateMenu(m *model.Menu) error {
 	return c.db.Create(m).Error
@@ -22,11 +25,7 @@ func (c *Client) GetMenu(m *model.Menu, cols ...interface{}) (*model.Menu, error
 	return m, nil
 }
 
-type QueryMenuOptions struct {
-	Pagination *model.Pagination
-}
-
-func (c *Client) ListMenus(q *QueryMenuOptions) (ret []*model.Menu, total int64, err error) {
+func (c *Client) ListMenus(q *types.QueryMenuOptions) (ret []*model.Menu, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
 		err = tx.Model(&model.Menu{}).Count(&total).Error

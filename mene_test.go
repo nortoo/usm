@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func TestClient_MenuAll(t *testing.T) {
@@ -66,7 +67,7 @@ func TestClient_MenuAll(t *testing.T) {
 		}
 	}
 
-	menus, total, err := client.ListMenus(&QueryMenuOptions{Pagination: &model.Pagination{
+	menus, total, err := client.ListMenus(&types.QueryMenuOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
 	}})

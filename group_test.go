@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func TestClient_GroupAll(t *testing.T) {
@@ -55,7 +56,7 @@ func TestClient_GroupAll(t *testing.T) {
 		}
 	}
 
-	groups, total, err := client.ListGroups(&QueryGroupOptions{Pagination: &model.Pagination{
+	groups, total, err := client.ListGroups(&types.QueryGroupOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
 	}})

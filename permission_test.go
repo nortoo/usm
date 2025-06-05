@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func TestClient_PermissionAll(t *testing.T) {
@@ -60,8 +61,8 @@ func TestClient_PermissionAll(t *testing.T) {
 	}
 
 	// List permissions
-	permissions, total, err := client.ListPermissions(&QueryPermissionOptions{
-		Pagination: &model.Pagination{
+	permissions, total, err := client.ListPermissions(&types.QueryPermissionOptions{
+		Pagination: &types.Pagination{
 			Page:     1,
 			PageSize: 10,
 		},

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 	"gorm.io/gorm"
 )
 
@@ -156,9 +157,9 @@ func TestClient_UserAll(t *testing.T) {
 		}
 	}
 
-	users, total, err := client.ListUsers(&QueryUserOptions{
+	users, total, err := client.ListUsers(&types.QueryUserOptions{
 		Username: "us",
-		Pagination: &model.Pagination{
+		Pagination: &types.Pagination{
 			Page:     1,
 			PageSize: 10,
 		},

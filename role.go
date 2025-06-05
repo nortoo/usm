@@ -2,6 +2,7 @@ package usm
 
 import (
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 	"github.com/pkg/errors"
 	"gorm.io/gorm/clause"
 )
@@ -67,11 +68,7 @@ func (c *Client) GetRole(r *model.Role, cols ...interface{}) (*model.Role, error
 	return r, nil
 }
 
-type QueryRoleOptions struct {
-	Pagination *model.Pagination
-}
-
-func (c *Client) ListRoles(q *QueryRoleOptions) (ret []*model.Role, total int64, err error) {
+func (c *Client) ListRoles(q *types.QueryRoleOptions) (ret []*model.Role, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
 		err = tx.Model(&model.Role{}).Count(&total).Error

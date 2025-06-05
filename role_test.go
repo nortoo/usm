@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func TestClient_RoleAll(t *testing.T) {
@@ -123,7 +124,7 @@ func TestClient_RoleAll(t *testing.T) {
 		}
 	}
 
-	roleList, total, err := client.ListRoles(&QueryRoleOptions{Pagination: &model.Pagination{
+	roleList, total, err := client.ListRoles(&types.QueryRoleOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
 	}})

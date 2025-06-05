@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func (c *Client) CreateUser(u *model.User) error {
@@ -36,15 +37,7 @@ func (c *Client) GetUser(u *model.User, cols ...interface{}) (*model.User, error
 	return u, nil
 }
 
-type QueryUserOptions struct {
-	Username   string
-	Email      string
-	Mobile     string
-	States     []int8
-	Pagination *model.Pagination
-}
-
-func (c *Client) ListUsers(q *QueryUserOptions) (ret []*model.User, total int64, err error) {
+func (c *Client) ListUsers(q *types.QueryUserOptions) (ret []*model.User, total int64, err error) {
 	tx := c.db.Model(&model.User{})
 	if q.Username != "" {
 		tx = tx.Where("username LIKE ?", fmt.Sprintf("%%%s%%", q.Username))

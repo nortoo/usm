@@ -1,6 +1,9 @@
 package usm
 
-import "github.com/nortoo/usm/model"
+import (
+	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
+)
 
 func (c *Client) CreatePermission(p *model.Permission) error {
 	return c.db.Create(p).Error
@@ -22,11 +25,7 @@ func (c *Client) GetPermission(p *model.Permission, cols ...interface{}) (*model
 	return p, nil
 }
 
-type QueryPermissionOptions struct {
-	Pagination *model.Pagination
-}
-
-func (c *Client) ListPermissions(q *QueryPermissionOptions) (ret []*model.Permission, total int64, err error) {
+func (c *Client) ListPermissions(q *types.QueryPermissionOptions) (ret []*model.Permission, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
 		err = tx.Model(&model.Permission{}).Count(&total).Error

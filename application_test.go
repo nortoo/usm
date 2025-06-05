@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func TestClient_ApplicationAll(t *testing.T) {
@@ -65,7 +66,7 @@ func TestClient_ApplicationAll(t *testing.T) {
 		}
 	}
 
-	apps, total, err := client.ListApplications(&QueryApplicationOptions{Pagination: &model.Pagination{
+	apps, total, err := client.ListApplications(&types.QueryApplicationOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
 	}})

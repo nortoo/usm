@@ -6,6 +6,7 @@ import (
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 	"gorm.io/gorm"
 )
 
@@ -33,37 +34,37 @@ type ClientService interface {
 	DeleteApplication(app *model.Application) error
 	UpdateApplication(app *model.Application, cols ...string) error
 	GetApplication(app *model.Application, cols ...interface{}) (*model.Application, error)
-	ListApplications(q *QueryApplicationOptions) (ret []*model.Application, total int64, err error)
+	ListApplications(q *types.QueryApplicationOptions) (ret []*model.Application, total int64, err error)
 
 	CreateGroup(g *model.Group) error
 	DeleteGroup(g *model.Group) error
 	UpdateGroup(g *model.Group, cols ...string) error
 	GetGroup(g *model.Group, cols ...interface{}) (*model.Group, error)
-	ListGroups(q *QueryGroupOptions) (ret []*model.Group, total int64, err error)
+	ListGroups(q *types.QueryGroupOptions) (ret []*model.Group, total int64, err error)
 
 	CreateMenu(m *model.Menu) error
 	DeleteMenu(m *model.Menu) error
 	UpdateMenu(m *model.Menu, cols ...string) error
 	GetMenu(m *model.Menu, cols ...interface{}) (*model.Menu, error)
-	ListMenus(q *QueryMenuOptions) (ret []*model.Menu, total int64, err error)
+	ListMenus(q *types.QueryMenuOptions) (ret []*model.Menu, total int64, err error)
 
 	CreateRole(r *model.Role) error
 	DeleteRole(r *model.Role) error
 	UpdateRole(r *model.Role, cols ...string) error
 	GetRole(r *model.Role, cols ...interface{}) (*model.Role, error)
-	ListRoles(q *QueryRoleOptions) (ret []*model.Role, total int64, err error)
+	ListRoles(q *types.QueryRoleOptions) (ret []*model.Role, total int64, err error)
 
 	CreatePermission(p *model.Permission) error
 	DeletePermission(p *model.Permission) error
 	UpdatePermission(p *model.Permission, cols ...string) error
 	GetPermission(p *model.Permission, cols ...interface{}) (*model.Permission, error)
-	ListPermissions(q *QueryPermissionOptions) (ret []*model.Permission, total int64, err error)
+	ListPermissions(q *types.QueryPermissionOptions) (ret []*model.Permission, total int64, err error)
 
 	CreateUser(u *model.User) error
 	DeleteUser(u *model.User) error
 	UpdateUser(u *model.User, cols ...string) error
 	GetUser(u *model.User, cols ...interface{}) (*model.User, error)
-	ListUsers(q *QueryUserOptions) (ret []*model.User, total int64, err error)
+	ListUsers(q *types.QueryUserOptions) (ret []*model.User, total int64, err error)
 
 	Authorize(role, tenant, resource, action string) (bool, error)
 }

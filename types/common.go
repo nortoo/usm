@@ -1,4 +1,4 @@
-package model
+package types
 
 type Pagination struct {
 	Page     int

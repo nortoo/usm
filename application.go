@@ -2,6 +2,7 @@ package usm
 
 import (
 	"github.com/nortoo/usm/model"
+	"github.com/nortoo/usm/types"
 )
 
 func (c *Client) CreateApplication(app *model.Application) error {
@@ -24,11 +25,7 @@ func (c *Client) GetApplication(app *model.Application, cols ...interface{}) (*m
 	return app, nil
 }
 
-type QueryApplicationOptions struct {
-	Pagination *model.Pagination
-}
-
-func (c *Client) ListApplications(q *QueryApplicationOptions) (ret []*model.Application, total int64, err error) {
+func (c *Client) ListApplications(q *types.QueryApplicationOptions) (ret []*model.Application, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
 		err = tx.Model(&model.Application{}).Count(&total).Error
