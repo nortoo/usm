@@ -51,6 +51,14 @@ func (c *Client) ListUsers(q *types.QueryUserOptions) (ret []*model.User, total 
 	if len(q.States) > 0 {
 		tx = tx.Where("state IN ?", q.States)
 	}
+	if q.RoleID != 0 {
+		tx = tx.Joins("JOIN user_roles ON user_roles.user_id = users.id").
+			Where("user_roles.role_id = ?", q.RoleID)
+	}
+	if q.GroupID != 0 {
+		tx = tx.Joins("JOIN user_groups ON user_groups.user_id = users.id").
+			Where("user_groups.group_id = ?", q.GroupID)
+	}
 
 	if q.Pagination != nil {
 		err = tx.Count(&total).Error
@@ -63,4 +71,34 @@ func (c *Client) ListUsers(q *types.QueryUserOptions) (ret []*model.User, total 
 
 	err = tx.Find(&ret).Error
 	return
+}
+
+func (c *Client) DoesUsernameExist(username string) (bool, error) {
+	var exists bool
+	sql := "SELECT EXISTS(SELECT 1 FROM users WHERE username = ?)"
+	err := c.db.Raw(sql, username).Scan(&exists).Error
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
+}
+
+func (c *Client) DoesEmailExist(email string) (bool, error) {
+	var exists bool
+	sql := "SELECT EXISTS(SELECT 1 FROM users WHERE email = ? AND deleted_at IS NULL)"
+	err := c.db.Raw(sql, email).Scan(&exists).Error
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
+}
+
+func (c *Client) DoesMobileExist(mobile string) (bool, error) {
+	var exists bool
+	sql := "SELECT EXISTS(SELECT 1 FROM users WHERE mobile = ? and deleted_at IS NULL)"
+	err := c.db.Raw(sql, mobile).Scan(&exists).Error
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
 }

@@ -21,6 +21,8 @@ type (
 		Email      string
 		Mobile     string
 		States     []int8
+		RoleID     uint
+		GroupID    uint
 		Pagination *Pagination
 	}
 )
