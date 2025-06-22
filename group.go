@@ -27,12 +27,18 @@ func (c *Client) GetGroup(g *model.Group, cols ...interface{}) (*model.Group, er
 
 func (c *Client) ListGroups(q *types.QueryGroupOptions) (ret []*model.Group, total int64, err error) {
 	tx := c.db
+	if len(q.IsDefault) > 0 {
+		tx = tx.Where("is_default IN ?", q.IsDefault)
+	}
 	if q.Pagination != nil {
-		err = tx.Model(&model.Group{}).Count(&total).Error
-		if err != nil || total == 0 {
-			return
+		if q.WithTotal {
+			if q.WithTotal {
+				err = tx.Model(&model.Group{}).Count(&total).Error
+				if err != nil || total == 0 {
+					return
+				}
+			}
 		}
-
 		tx.Limit(q.Pagination.PageSize).Offset((q.Pagination.Page - 1) * q.Pagination.PageSize)
 	}
 	err = tx.Find(&ret).Error

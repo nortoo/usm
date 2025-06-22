@@ -28,9 +28,11 @@ func (c *Client) GetPermission(p *model.Permission, cols ...interface{}) (*model
 func (c *Client) ListPermissions(q *types.QueryPermissionOptions) (ret []*model.Permission, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
-		err = tx.Model(&model.Permission{}).Count(&total).Error
-		if err != nil || total == 0 {
-			return
+		if q.WithTotal {
+			err = tx.Model(&model.Permission{}).Count(&total).Error
+			if err != nil || total == 0 {
+				return
+			}
 		}
 
 		tx.Limit(q.Pagination.PageSize).Offset((q.Pagination.Page - 1) * q.Pagination.PageSize)

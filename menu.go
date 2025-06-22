@@ -28,9 +28,11 @@ func (c *Client) GetMenu(m *model.Menu, cols ...interface{}) (*model.Menu, error
 func (c *Client) ListMenus(q *types.QueryMenuOptions) (ret []*model.Menu, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
-		err = tx.Model(&model.Menu{}).Count(&total).Error
-		if err != nil || total == 0 {
-			return
+		if q.WithTotal {
+			err = tx.Model(&model.Menu{}).Count(&total).Error
+			if err != nil || total == 0 {
+				return
+			}
 		}
 
 		tx.Limit(q.Pagination.PageSize).Offset((q.Pagination.Page - 1) * q.Pagination.PageSize)

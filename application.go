@@ -28,11 +28,12 @@ func (c *Client) GetApplication(app *model.Application, cols ...interface{}) (*m
 func (c *Client) ListApplications(q *types.QueryApplicationOptions) (ret []*model.Application, total int64, err error) {
 	tx := c.db
 	if q.Pagination != nil {
-		err = tx.Model(&model.Application{}).Count(&total).Error
-		if err != nil || total == 0 {
-			return
+		if q.WithTotal {
+			err = tx.Model(&model.Application{}).Count(&total).Error
+			if err != nil || total == 0 {
+				return
+			}
 		}
-
 		tx.Limit(q.Pagination.PageSize).Offset((q.Pagination.Page - 1) * q.Pagination.PageSize)
 	}
 	err = tx.Find(&ret).Error

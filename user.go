@@ -61,9 +61,11 @@ func (c *Client) ListUsers(q *types.QueryUserOptions) (ret []*model.User, total 
 	}
 
 	if q.Pagination != nil {
-		err = tx.Count(&total).Error
-		if err != nil || total == 0 {
-			return
+		if q.WithTotal {
+			err = tx.Count(&total).Error
+			if err != nil || total == 0 {
+				return
+			}
 		}
 
 		tx = tx.Limit(q.Pagination.PageSize).Offset((q.Pagination.Page - 1) * q.Pagination.PageSize)
