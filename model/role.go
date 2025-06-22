@@ -14,6 +14,7 @@ type (
 		Application   *Application  `gorm:"foreignKey:ApplicationID; references:ID; onDelete:CASCADE"`
 		Menus         []*Menu       `gorm:"many2many:role_menus;"`
 		Permissions   []*Permission `gorm:"many2many:role_permissions;"`
+		IsDefault     bool          `gorm:"default:false"`
 
 		CreatedAt time.Time
 		UpdatedAt time.Time
