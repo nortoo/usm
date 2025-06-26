@@ -28,7 +28,15 @@ func (c *Client) CreateRole(r *model.Role) error {
 }
 
 func (c *Client) DeleteRole(r *model.Role) error {
-	return c.db.Select(clause.Associations).Delete(r).Error
+	role, err := c.GetRole(r)
+	if err != nil {
+		return err
+	}
+	err = c.db.Select(clause.Associations).Delete(role).Error
+	if err != nil {
+		return err
+	}
+	return c.clearPolicy(role.Name)
 }
 
 func (c *Client) UpdateRole(r *model.Role, cols ...string) error {
