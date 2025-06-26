@@ -59,7 +59,9 @@ func TestClient_GroupAll(t *testing.T) {
 	groups, total, err := client.ListGroups(&types.QueryGroupOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
-	}})
+	},
+		WithTotal: true,
+	})
 	if err != nil {
 		t.Fatal("failed to list groups:", err)
 	}

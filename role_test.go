@@ -127,7 +127,9 @@ func TestClient_RoleAll(t *testing.T) {
 	roleList, total, err := client.ListRoles(&types.QueryRoleOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
-	}})
+	},
+		WithTotal: true,
+	})
 	if err != nil {
 		t.Fatal("failed to list roles:", err)
 	}

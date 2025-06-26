@@ -70,7 +70,9 @@ func TestClient_MenuAll(t *testing.T) {
 	menus, total, err := client.ListMenus(&types.QueryMenuOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
-	}})
+	},
+		WithTotal: true,
+	})
 	if err != nil {
 		t.Fatal("failed to list menus:", err)
 	}

@@ -69,7 +69,9 @@ func TestClient_ApplicationAll(t *testing.T) {
 	apps, total, err := client.ListApplications(&types.QueryApplicationOptions{Pagination: &types.Pagination{
 		Page:     1,
 		PageSize: 10,
-	}})
+	},
+		WithTotal: true,
+	})
 	if err != nil {
 		t.Fatal("failed to list applications:", err)
 	}

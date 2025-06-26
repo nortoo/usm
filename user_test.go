@@ -208,6 +208,7 @@ func TestClient_UserAll(t *testing.T) {
 			Page:     1,
 			PageSize: 10,
 		},
+		WithTotal: true,
 	})
 	if err != nil {
 		t.Fatal("failed to list users:", err)
